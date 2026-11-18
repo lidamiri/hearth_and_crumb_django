@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div>
+    <p class="eyebrow">Small-batch bakery</p>
+    <h1>Bread and pastry baked before sunrise.</h1>
+    <p>Order online, choose a pickup time, and collect your bakes from the counter on Millstone Lane.</p>
+    <div class="actions">
+      <a class="button" href="{% url 'catalog:product_list' %}">Shop the bakery</a>
+      <a class="button button-ghost" href="{% url 'pages:about' %}">Our story</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <h2>Featured this week</h2>
+    <a href="{% url 'catalog:product_list' %}">See everything</a>
+  </div>
+  <div class="grid">
+    {% for product in featured %}
+      {% include "partials/product_card.html" %}
+    {% empty %}
+      <p>Our featured bakes are being prepared. Check back soon.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <h2>Categories</h2>
+  </div>
+  <ul class="category-list">
+    {% for category in categories %}
+      <li><a href="{{ category.get_absolute_url }}"><strong>{{ category.name }}</strong><span>{{ category.description }}</span></a></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

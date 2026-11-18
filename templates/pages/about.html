@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}About | {{ store_name }}{% endblock %}
+{% block content %}
+<section class="page-head">
+  <h1>About Hearth and Crumb</h1>
+</section>
+<div class="prose">
+  <p>Hearth and Crumb started in a converted coach house on Millstone Lane with one oven and a sourdough starter that is now over ten years old. We bake in small batches so every loaf leaves the oven at its best.</p>
+  <p>Our flour is milled by a family mill forty kilometres away. Butter for the laminated pastries is cultured in the dairy next door. We publish our allergen information on every product page.</p>
+  <h2>How pickup works</h2>
+  <p>Place an order online and choose a pickup slot. Orders are reserved as soon as they are placed. Collect at the counter during your slot and pay on collection.</p>
+  <h2>Visit us</h2>
+  <p>{{ store_address }}. Open Tuesday to Sunday, 7am to 3pm.</p>
+</div>
+{% endblock %}

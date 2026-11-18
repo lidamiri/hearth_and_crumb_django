@@ -1,0 +1,16 @@
+<article class="product-card">
+  <div class="product-art" aria-hidden="true">{{ product.name|slice:":1" }}</div>
+  <div class="product-body">
+    <p class="eyebrow">{{ product.category.name }}</p>
+    <h3><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
+    <p>{{ product.summary }}</p>
+    <div class="product-meta">
+      <span class="price">${{ product.price }}</span>
+      {% if product.in_stock %}
+        <span class="stock">{{ product.stock }} left</span>
+      {% else %}
+        <span class="stock sold-out">Sold out</span>
+      {% endif %}
+    </div>
+  </div>
+</article>

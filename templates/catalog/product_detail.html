@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }} | {{ store_name }}{% endblock %}
+{% block description %}{{ product.summary }}{% endblock %}
+{% block content %}
+<nav class="breadcrumbs"><a href="{% url 'catalog:home' %}">Home</a> / <a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a> / {{ product.name }}</nav>
+
+<article class="product-detail">
+  <div class="product-art product-art-large" aria-hidden="true">{{ product.name|slice:":1" }}</div>
+  <div>
+    <p class="eyebrow">{{ product.category.name }}</p>
+    <h1>{{ product.name }}</h1>
+    <p class="lead">{{ product.summary }}</p>
+    <p class="price">${{ product.price }}</p>
+    <p>{{ product.description }}</p>
+    {% if product.allergens %}<p class="allergens"><strong>Contains:</strong> {{ product.allergens }}</p>{% endif %}
+
+    {% if product.in_stock %}
+    <form method="post" action="{% url 'orders:cart_add' product.slug %}" class="add-form">
+      {% csrf_token %}
+      <label for="quantity">Quantity</label>
+      <div class="stepper">
+        <button type="button" data-step="-1" aria-label="Decrease">-</button>
+        <input id="quantity" name="quantity" type="number" min="1" max="{{ product.stock }}" value="1">
+        <button type="button" data-step="1" aria-label="Increase">+</button>
+      </div>
+      <button class="button" type="submit">Add to basket</button>
+      <p class="muted">{{ product.stock }} available for pickup.</p>
+    </form>
+    {% else %}
+      <p class="sold-out">This bake is sold out. Check back tomorrow.</p>
+    {% endif %}
+  </div>
+</article>
+
+{% if related %}
+<section>
+  <div class="section-head"><h2>More from {{ product.category.name }}</h2></div>
+  <div class="grid">
+    {% for item in related %}
+      {% include "partials/product_card.html" with product=item %}
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}

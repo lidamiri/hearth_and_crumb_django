@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Shop | {{ store_name }}{% endblock %}
+{% block content %}
+<section class="page-head">
+  <h1>{% if active_category %}{{ active_category.name }}{% else %}Shop{% endif %}</h1>
+  {% if active_category %}<p>{{ active_category.description }}</p>{% endif %}
+</section>
+
+<div class="shop-toolbar">
+  <form method="get" action="{% url 'catalog:product_list' %}" class="search-form">
+    <label for="q" class="visually-hidden">Search products</label>
+    <input id="q" type="search" name="q" value="{{ query }}" placeholder="Search bakes">
+    <button type="submit" class="button">Search</button>
+  </form>
+  <nav class="chips" aria-label="Categories">
+    <a class="chip{% if not active_category %} chip-active{% endif %}" href="{% url 'catalog:product_list' %}">All</a>
+    {% for category in categories %}
+      <a class="chip{% if active_category == category %} chip-active{% endif %}" href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+    {% endfor %}
+  </nav>
+</div>
+
+<p class="result-count">{{ products|length }} products</p>
+<div class="grid">
+  {% for product in products %}
+    {% include "partials/product_card.html" %}
+  {% empty %}
+    <p>No products match this search yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

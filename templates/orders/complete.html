@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Order {{ order.reference }} | {{ store_name }}{% endblock %}
+{% block content %}
+<h1>Thank you, {{ order.customer_name }}</h1>
+<p>Your order <strong>{{ order.reference }}</strong> is booked for pickup at {{ order.pickup_slot|date:"D j M, H:i" }} UTC.</p>
+<p>Keep this reference. You can check the status at any time from the <a href="{% url 'orders:track' %}">track order</a> page.</p>
+<table class="cart-table">
+  <thead><tr><th>Item</th><th>Quantity</th><th>Total</th></tr></thead>
+  <tbody>
+    {% for item in order.items.all %}
+    <tr><td>{{ item.product_name }}</td><td>{{ item.quantity }}</td><td>${{ item.line_total }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p class="total">Order total <strong>${{ order.total }}</strong></p>
+{% endblock %}

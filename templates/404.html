@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Page not found | {{ store_name }}{% endblock %}
+{% block content %}
+<h1>We could not find that page</h1>
+<p>The bake you are looking for may have sold out. <a href="{% url 'catalog:product_list' %}">Browse the shop</a> instead.</p>
+{% endblock %}

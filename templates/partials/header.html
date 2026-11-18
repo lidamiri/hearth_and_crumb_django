@@ -1,0 +1,13 @@
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="{% url 'catalog:home' %}">{{ store_name }}</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="{% url 'catalog:product_list' %}">Shop</a>
+      <a href="{% url 'pages:about' %}">About</a>
+      <a href="{% url 'pages:contact' %}">Contact</a>
+      <a href="{% url 'orders:track' %}">Track order</a>
+      <a class="basket-link" href="{% url 'orders:cart' %}">Basket <span class="badge">{{ basket|length }}</span></a>
+    </nav>
+  </div>
+</header>
